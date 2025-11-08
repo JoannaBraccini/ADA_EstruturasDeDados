@@ -21,15 +21,15 @@ public class BinarySearchTree {
     }
 
     // método recursivo para inserir dados na árvore
-    private void insert(final Node root, final int value) {
-        if (root == null) return; // se árvore vazia
-        if (root.value == value) return; // se valor for igual a raiz
-        if (value > root.value) { // se valor for maior que a raiz
-            if (root.right == null) root.right = new Node(value); // insere no filho direito
-            else insert(root.right, value); // recursivo para inserir no filho direito
+    private void insert(final Node node, final int value) {
+        if (node == null) return; // se árvore vazia
+        if (node.value == value) return; // se valor for igual a raiz
+        if (value > node.value) { // se valor for maior que a raiz
+            if (node.right == null) node.right = new Node(value); // insere no filho direito
+            else insert(node.right, value); // recursivo para inserir no filho direito
         } else {
-            if (root.left == null) root.left = new Node(value); // insere no filho esquerdo
-            else insert(root.left, value); // recursivo para inserir no filho esquerdo
+            if (node.left == null) node.left = new Node(value); // insere no filho esquerdo
+            else insert(node.left, value); // recursivo para inserir no filho esquerdo
         }
     }
 
@@ -70,21 +70,21 @@ public class BinarySearchTree {
         root = deleteNode(root, value);
     }
 
-    private Node deleteNode(final Node root, final int value) {
-        if (root == null) return null;
-        if (value < root.value) root.left = deleteNode(root.left, value); // se o valor for menor que a raiz, o lado esquerdo recebe o valor removido
-        else if (value > root.value) root.right = deleteNode(root.right, value); // se o valor for maior que a raiz, o lado direito recebe o valor removido
+    private Node deleteNode(final Node node, final int value) {
+        if (node == null) return null;
+        if (value < node.value) node.left = deleteNode(node.left, value); // se o valor for menor que a raiz, o lado esquerdo recebe o valor removido
+        else if (value > node.value) node.right = deleteNode(node.right, value); // se o valor for maior que a raiz, o lado direito recebe o valor removido
         else
-            if (root.left == null && root.right == null) return null; // se ambos os filhos forem nulos, retorna null
-            else if (root.left == null) return root.right; // se o lado esquerdo for nulo, retorna o filho direito
-            else if (root.right == null) return root.left; // se o lado direito for nulo, retorna o filho esquerdo
+            if (node.left == null && node.right == null) return null; // se ambos os filhos forem nulos, retorna null
+            else if (node.left == null) return node.right; // se o lado esquerdo for nulo, retorna o filho direito
+            else if (node.right == null) return node.left; // se o lado direito for nulo, retorna o filho esquerdo
             else {
                 // nó com dois filhos: obtém o menor valor do lado direito
-                int minValue = minValue(root.right);
-                root.value = minValue; // substitui o valor do nó pelo menor valor
-                root.right = deleteNode(root.right, minValue); // remove o nó com o menor valor
+                int minValue = minValue(node.right);
+                node.value = minValue; // substitui o valor do nó pelo menor valor
+                node.right = deleteNode(node.right, minValue); // remove o nó com o menor valor
             }
-        return root;
+        return node;
 
 
     }

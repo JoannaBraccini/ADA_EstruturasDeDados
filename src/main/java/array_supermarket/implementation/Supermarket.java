@@ -5,5 +5,5 @@ public interface Supermarket {
 
     void print();
 
-    void delete(final int index);
+    boolean delete(final int index);
 }

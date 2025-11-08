@@ -8,7 +8,7 @@ public class LinkedList {
     private Node tail;
     private int length;
 
-    // A lista ligada é composta de nós (nodes)
+    // A lista ligada é composta de nós (nodes)b
     public static class Node {
         String data; // Cada nó armazena informação
         Node next; // Cada nó aponta para o próximo
@@ -89,33 +89,29 @@ public class LinkedList {
         // Caso especial: lista vazia
         // Não há nada para remover, retorna null
         if (length == 0) return null;
+        // Caso especial: lista com um único elemento
+        if (length == 1) {
+            Node temp = head;
+            head = null;
+            tail = null;
+            length = 0;
+            return temp;
+        }
         // Inicializa um nó "leitor" que percorrerá a lista
         // começando pela cabeça
         Node leitor = head;
-        // Variável para armazenar o nó que será removido e retornado
-        Node temp = null;
         // Percorre a lista até encontrar o penúltimo nó
-        // O penúltimo nó é aquele cujo próximo (next) aponta para a cauda (tail)
-        // Precisamos dele para atualizar a nova cauda
         while (leitor.next != tail) {
             leitor = leitor.next;
         }
         // Guarda referência ao nó atual da cauda (último elemento)
-        // para ser retornado no final
-        temp = tail;
+        Node temp = tail;
         // Atualiza a cauda para o penúltimo nó (onde o leitor parou)
         tail = leitor;
         // Remove a ligação do novo último nó para o antigo último
-        // Isso efetivamente remove o último elemento da lista
         tail.next = null;
         // Decrementa o contador de elementos
         length--;
-        // Caso especial: após a remoção, a lista ficou vazia
-        // Ambos head e tail devem apontar para null
-        if (length == 0) {
-            head = null;
-            tail = null;
-        }
         // Retorna o nó removido
         return temp;
     }

@@ -27,18 +27,20 @@ public class SupermarketArray implements Supermarket {
             System.out.println("Lista de Supermercado vazia");
         }
         for (int i = 0; i <= lastIndex; i++) {
-            System.out.println(i+1 + " - " + items[i]);
+            System.out.println((i + 1) + " - " + items[i]);
         }
         System.out.println("===============================");
     }
 
     @Override
-    public void delete(int index) {
-        int arrayIndex = index - 1;
-        if (arrayIndex >= 0 && arrayIndex <= lastIndex) {
-            shift(arrayIndex);
+    public boolean delete(int index) {
+        // index is internal 0-based; callers (e.g. Main) should convert from user-facing 1-based to 0-based
+        if (index >= 0 && index <= lastIndex) {
+            shift(index);
+            return true;
         } else {
-            System.err.println("Índice Inválido" + index);
+            System.err.println("Índice Inválido: " + index);
+            return false;
         }
     }
 

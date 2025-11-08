@@ -46,6 +46,9 @@ public class Main {
                 }
                 case 2 -> supermarket.print();
                 case 3 -> {
+                    // Mostra a lista atual para que o usuário veja as posições (1-based)
+                    supermarket.print();
+
                     System.out.println("Digite a posição do item a ser removido: ");
                     if (!scanner.hasNext()) {
                         System.out.println("Entrada encerrada durante leitura do índice. Saindo...");
@@ -58,16 +61,17 @@ public class Main {
                             scanner.close();
                             return;
                         }
-                        System.out.print("Digite um número válido para índice: ");
+                        System.out.print("Digite um número válido para posição: ");
                         scanner.next();
                     }
-                    int index = scanner.nextInt();
+                    int userPos = scanner.nextInt();
                     if (scanner.hasNextLine()) scanner.nextLine();
-                    supermarket.delete(index);
+                    int index = userPos - 1; // converter para 0-based interno
+                    boolean removed = supermarket.delete(index);
+                    if (removed) System.out.println("Item removido com sucesso.");
+                    else System.out.println("Posição inválida. Nenhuma remoção realizada.");
                 }
-                case 0 -> {
-                    System.out.println("Saindo...");
-                }
+                case 0 -> System.out.println("Saindo...");
                 default -> System.out.println("Opção inválida. Por favor, tente novamente");
             }
         } while (option != 0);
